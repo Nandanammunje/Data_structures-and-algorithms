@@ -17,5 +17,5 @@ cout<<"\n element occuring odd number of times is "<<res;
 
 
 
-    return 0;
+    return -1;
 }
