@@ -46,10 +46,57 @@ while(fast)
         slow=slow->next;
         }
         }
+        *front=head;
+        *back=slow->next;
+        slow->next=NULL;
+        
 }
 
+struct node* merge(struct node *a,struct node *b)
+{
+struct node *result;
+if(a==NULL)
+return b;
+else if(b==NULL)
+return a;
+else if(a->count > b->count)
+{
+    result=a;
+    return result->next=merge(a->next,b);
+}
+else if(a->count < b->count)
+{
+    result=b;
+    return result->next=merge(a,b->next);
+}
+else
+{
+    if(a->data > b->data)
+    {
+       result=a;
+       return result->next=merge(a->next,b);
+    }
+       else
+       {
+        result=b;
+        return result->next=merge(a,b->next);
+       }
 
+}
 
+}
+void sort(struct node **q)
+{
+struct node *a,*b,*head=*q;
+a=NULL;
+b=NULL;
+if(head==NULL||head->next==NULL)
+return ;
+split(head,&a,&b);
+sort(&a);
+sort(&b);
+*q=merge(a,b);
+}
 void sortfrequency(int a[],int m)
 {
 unordered_map<int,int> umap;
