@@ -54,7 +54,7 @@ while(fast)
 
 struct node* merge(struct node *a,struct node *b)
 {
-struct node *result;
+struct node *result=NULL;
 if(a==NULL)
 return b;
 else if(b==NULL)
@@ -62,27 +62,28 @@ return a;
 else if(a->count > b->count)
 {
     result=a;
-    return result->next=merge(a->next,b);
+     result->next=merge(a->next,b);
 }
-else if(a->count < b->count)
+else if(a->count <b->count)
 {
     result=b;
-    return result->next=merge(a,b->next);
+    result->next=merge(a,b->next);
 }
-else
+else if(a->count==b->count)
 {
     if(a->data > b->data)
     {
        result=a;
-       return result->next=merge(a->next,b);
+        result->next=merge(a->next,b);
     }
        else
        {
         result=b;
-        return result->next=merge(a,b->next);
+         result->next=merge(a,b->next);
        }
-
+       
 }
+return result;
 
 }
 void sort(struct node **q)
@@ -97,6 +98,7 @@ sort(&a);
 sort(&b);
 *q=merge(a,b);
 }
+
 void sortfrequency(int a[],int m)
 {
 unordered_map<int,int> umap;
@@ -111,11 +113,23 @@ else
 umap[a[i]]=1;
 }
 }
-struct node *p,*q;
+struct node *p,*q,*temp;
 p=NULL;
 q=NULL;
 for(auto x:umap)
 createnode(&p,x.first,x.second,&q);
+sort(&p);
+temp=p;
+int j=0;
+while(temp)
+{
+    for(int i=0;i<temp->count;i++)
+    {
+        a[j]=temp->data;
+        j++;
+    }
+    temp=temp->next;
+}
 }
 
 int main()
@@ -129,7 +143,9 @@ for(int i=0;i<m;i++)
 cin>>a[i];
 
 sortfrequency(a,m);
-
+cout<<"\n Output array sorted according to frequency ";
+ for(int i=0;i<m;i++)
+cout<<a[i]<<"\n";
 
 
 }
