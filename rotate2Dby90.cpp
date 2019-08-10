@@ -6,27 +6,46 @@ int main()
 int m;
 cout<<"\n Enter the size of the nxn matrix ";
 cin>>m;
-int size=0;
-int a[m][m],b[2*m];
+int a[m][m];
 cout<<"\n Enter the data into the array ";
 for(int i=0;i<m;i++)
 {
+    
     for(int j=0;j<m;j++)
     {
         cin>>a[i][j];
-        b[size++];
+        
     }
 }
-int temp;
+int temp=0;
 for(int i=0;i<m;i++)
 {
+    
     for(int j=0;j<m;j++)
     {
-            temp=a[j][i];
+          temp=a[i][j];
+       a[i][j]=temp;
+        
     }
 }
-
-
+/*for(int i=0;i<m;i++)
+{
+    for(int j=0;j<m/2;j++)
+    {
+        temp=a[i][j];
+        a[i][j]=a[i][m-1-j];
+        a[i][m-1-j]=temp;
+    }
+}*/
+cout<<"\n Rotated 90 degree array is ";
+for(int i=0;i<m;i++)
+{
+    cout<<"\n";
+    for(int j=0;j<m;j++)
+    {
+    cout<<a[i][j]<<" ";
+    }
+}
 
     return 0;
 }
